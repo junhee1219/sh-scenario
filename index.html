@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>메이플자이 장기전세 자금·실행 전략</title>
+<style>
+  :root {
+    --ground: #F5F7F5;
+    --surface: #FFFFFF;
+    --surface-2: #F0F3F1;
+    --ink: #17211C;
+    --muted: #5A6862;
+    --faint: #8A968F;
+    --border: #E0E6E2;
+    --border-strong: #CBD4CE;
+    --accent: #0E7C66;
+    --accent-soft: #E2F1EC;
+    --good: #0E7C66;
+    --good-soft: #E2F1EC;
+    --warn: #A9720A;
+    --warn-soft: #F7EDD8;
+    --risk: #B4432B;
+    --risk-soft: #F7E3DD;
+    --shadow: 0 1px 2px rgba(23,33,28,.04), 0 4px 16px rgba(23,33,28,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #0F1411;
+      --surface: #171E19;
+      --surface-2: #1F2823;
+      --ink: #E7EDE9;
+      --muted: #A0ACA5;
+      --faint: #6E7B74;
+      --border: #29332D;
+      --border-strong: #37423B;
+      --accent: #45C3A6;
+      --accent-soft: #16302A;
+      --good: #45C3A6;
+      --good-soft: #16302A;
+      --warn: #D9A441;
+      --warn-soft: #33280F;
+      --risk: #E28166;
+      --risk-soft: #35201A;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 18px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #F5F7F5; --surface: #FFFFFF; --surface-2: #F0F3F1;
+    --ink: #17211C; --muted: #5A6862; --faint: #8A968F;
+    --border: #E0E6E2; --border-strong: #CBD4CE;
+    --accent: #0E7C66; --accent-soft: #E2F1EC;
+    --good: #0E7C66; --good-soft: #E2F1EC;
+    --warn: #A9720A; --warn-soft: #F7EDD8;
+    --risk: #B4432B; --risk-soft: #F7E3DD;
+    --shadow: 0 1px 2px rgba(23,33,28,.04), 0 4px 16px rgba(23,33,28,.05);
+  }
+  :root[data-theme="dark"] {
+    --ground: #0F1411; --surface: #171E19; --surface-2: #1F2823;
+    --ink: #E7EDE9; --muted: #A0ACA5; --faint: #6E7B74;
+    --border: #29332D; --border-strong: #37423B;
+    --accent: #45C3A6; --accent-soft: #16302A;
+    --good: #45C3A6; --good-soft: #16302A;
+    --warn: #D9A441; --warn-soft: #33280F;
+    --risk: #E28166; --risk-soft: #35201A;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 18px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Malgun Gothic", "Noto Sans KR", sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "tnum" 0;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: clamp(20px, 4vw, 44px) clamp(16px, 4vw, 32px) 80px; }
+
+  /* ---- header ---- */
+  header.masthead { margin-bottom: 34px; }
+  .eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 12px;
+  }
+  h1 {
+    font-size: clamp(26px, 5.2vw, 40px); line-height: 1.12; font-weight: 800;
+    letter-spacing: -.02em; margin: 0 0 14px; text-wrap: balance;
+  }
+  .sub {
+    font-size: clamp(15px, 2.4vw, 17px); color: var(--muted); margin: 0;
+    display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center;
+  }
+  .sub b { color: var(--ink); font-weight: 700; }
+  .sub .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border-strong); display: inline-block; }
+  .stamp {
+    margin-top: 18px; font-size: 12.5px; color: var(--faint);
+    border-left: 2px solid var(--border-strong); padding: 2px 0 2px 12px;
+  }
+
+  /* ---- summary tiles ---- */
+  .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 26px 0 40px; }
+  @media (max-width: 640px) { .tiles { grid-template-columns: repeat(2, 1fr); } }
+  .tile {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 15px; box-shadow: var(--shadow);
+  }
+  .tile .k { font-size: 11.5px; letter-spacing: .04em; color: var(--muted); font-weight: 600; margin: 0 0 8px; }
+  .tile .v { font-size: clamp(19px, 3.2vw, 23px); font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums; margin: 0; }
+  .tile .note { font-size: 11.5px; color: var(--faint); margin: 5px 0 0; font-variant-numeric: tabular-nums; }
+  .tile.hot .v { color: var(--accent); }
+
+  /* ---- sections ---- */
+  section { margin: 0 0 42px; }
+  h2 {
+    font-size: 20px; font-weight: 800; letter-spacing: -.01em; margin: 0 0 4px;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  h2 .num {
+    font-size: 12px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums;
+    border: 1px solid var(--accent); border-radius: 5px; padding: 1px 6px; letter-spacing: .02em;
+  }
+  .lede { color: var(--muted); font-size: 14.5px; margin: 0 0 18px; }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: clamp(16px, 3vw, 22px); box-shadow: var(--shadow);
+  }
+  .card + .card { margin-top: 14px; }
+
+  /* ---- timeline ---- */
+  .timeline { list-style: none; margin: 0; padding: 0; }
+  .timeline li { position: relative; padding: 0 0 22px 30px; }
+  .timeline li:last-child { padding-bottom: 0; }
+  .timeline li::before {
+    content: ""; position: absolute; left: 5px; top: 6px; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--surface); border: 2px solid var(--accent); z-index: 1;
+  }
+  .timeline li::after {
+    content: ""; position: absolute; left: 9px; top: 16px; bottom: 0; width: 2px; background: var(--border-strong);
+  }
+  .timeline li:last-child::after { display: none; }
+  .timeline li.now::before { background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+  .tl-date { font-size: 12.5px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: .01em; }
+  .tl-body { font-size: 14.5px; margin: 2px 0 0; }
+  .tl-body b { font-weight: 700; }
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; margin-left: 6px; vertical-align: middle; }
+  .tag.now { background: var(--accent); color: var(--surface); }
+
+  /* ---- tables ---- */
+  .tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 12px; border: 1px solid var(--border); }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; background: var(--surface); }
+  th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  thead th { background: var(--surface-2); font-size: 12px; letter-spacing: .03em; color: var(--muted); font-weight: 700; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.total td { font-weight: 800; background: var(--accent-soft); }
+  tr.total td:first-child { color: var(--accent); }
+
+  /* ---- scenario cards ---- */
+  .paths { display: grid; gap: 14px; }
+  .path { border-radius: 14px; border: 1px solid var(--border); background: var(--surface); overflow: hidden; box-shadow: var(--shadow); }
+  .path-head { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--border); }
+  .path-head .badge { font-size: 12px; font-weight: 800; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 7px; flex: none; }
+  .path-head .ttl { font-weight: 800; font-size: 15.5px; }
+  .path-head .sub { font-size: 12.5px; color: var(--muted); margin-left: auto; }
+  .path-body { padding: 15px 18px; font-size: 14px; }
+  .path-body .row { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; }
+  .path-body .row span:last-child { font-variant-numeric: tabular-nums; font-weight: 600; }
+  .path-body .verdict { margin-top: 10px; padding-top: 12px; border-top: 1px dashed var(--border-strong); font-size: 13.5px; }
+  .p-good .badge { background: var(--good-soft); color: var(--good); }
+  .p-good { border-color: color-mix(in srgb, var(--good) 30%, var(--border)); }
+  .p-warn .badge { background: var(--warn-soft); color: var(--warn); }
+  .p-risk .badge { background: var(--risk-soft); color: var(--risk); }
+  .pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 999px; }
+  .pill.good { background: var(--good-soft); color: var(--good); }
+  .pill.warn { background: var(--warn-soft); color: var(--warn); }
+  .pill.risk { background: var(--risk-soft); color: var(--risk); }
+
+  /* ---- generic lists ---- */
+  ul.clean { list-style: none; margin: 0; padding: 0; }
+  ul.clean li { position: relative; padding: 7px 0 7px 24px; font-size: 14.5px; border-bottom: 1px solid var(--border); }
+  ul.clean li:last-child { border-bottom: none; }
+  ul.clean li::before { content: ""; position: absolute; left: 4px; top: 14px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  ul.clean li b { font-weight: 700; }
+  .muted-note { color: var(--muted); }
+
+  /* checklist */
+  .checks { list-style: none; margin: 0; padding: 0; }
+  .checks li { display: flex; gap: 11px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 14.5px; align-items: flex-start; }
+  .checks li:last-child { border-bottom: none; }
+  .box { flex: none; width: 18px; height: 18px; border: 2px solid var(--border-strong); border-radius: 5px; margin-top: 2px; }
+  .phase-label { font-size: 12px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); margin: 18px 0 4px; }
+  .phase-label:first-child { margin-top: 0; }
+
+  .callout { border-radius: 12px; padding: 14px 16px; font-size: 14px; margin-top: 14px; }
+  .callout.good { background: var(--good-soft); border: 1px solid color-mix(in srgb, var(--good) 30%, transparent); }
+  .callout.warn { background: var(--warn-soft); border: 1px solid color-mix(in srgb, var(--warn) 32%, transparent); }
+  .callout b { font-weight: 800; }
+
+  .script { background: var(--surface-2); border-radius: 10px; padding: 14px 16px; font-size: 14px; line-height: 1.65; color: var(--ink); border: 1px dashed var(--border-strong); }
+  .script .q { color: var(--muted); font-size: 12.5px; font-weight: 700; margin-bottom: 6px; letter-spacing: .02em; }
+
+  .hr { height: 1px; background: var(--border); border: none; margin: 42px 0; }
+  .foot { font-size: 12px; color: var(--faint); text-align: center; margin-top: 8px; }
+  a { color: var(--accent); }
+  strong.k { color: var(--accent); font-weight: 700; }
+
+  @media print {
+    body { background: #fff; }
+    .card, .path, .tile, .tbl-scroll { box-shadow: none; }
+    section { break-inside: avoid; }
+  }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <p class="eyebrow">제49차 SH 장기전세 · 당첨 실행 전략</p>
+    <h1>메이플자이 장기전세<br>자금 조달 &amp; 실행 플랜</h1>
+    <p class="sub">
+      <span>전용 <b>49㎡</b></span><span class="dot"></span>
+      <span>전세보증금 <b>8억 1,900만원</b></span><span class="dot"></span>
+      <span>서초구 · 최장 <b>20년</b> 거주</span>
+    </p>
+    <p class="stamp">2026.7.10 당첨자 발표 기준 · 개인 참고용 · 대출 한도·금리·규제는 실행 시점 은행/SH 확인 필수</p>
+  </header>
+
+  <div class="tiles">
+    <div class="tile"><p class="k">필요 자금 (총 보증금)</p><p class="v">8.19억</p><p class="note">= 계약금 10% + 잔금 90%</p></div>
+    <div class="tile hot"><p class="k">계약금 (계약 시)</p><p class="v">8,190만</p><p class="note">2026.7.22 ~ 7.24</p></div>
+    <div class="tile"><p class="k">잔금 (입주 시)</p><p class="v">7.37억</p><p class="note">2026.8.24 ~ 10.23</p></div>
+    <div class="tile hot"><p class="k">전략 목표</p><p class="v">주식 보존</p><p class="note">안 깨고 마련</p></div>
+  </div>
+
+  <section>
+    <h2><span class="num">01</span> 타임라인</h2>
+    <p class="lede">돈이 언제 나가고 언제 들어오는지 — 이 순서 위에 모든 결정이 얹힌다.</p>
+    <div class="card">
+      <ul class="timeline">
+        <li class="now">
+          <div class="tl-date">2026.7.10 (금)</div>
+          <p class="tl-body"><b>당첨자 발표</b> — 오늘<span class="tag now">NOW</span></p>
+        </li>
+        <li>
+          <div class="tl-date">2026.7.22 ~ 7.24</div>
+          <p class="tl-body"><b>계약 체결 + 계약금 10%(8,190만원) 납부.</b> 순수현금으로 충당. <b>전자계약</b>(irts.molit.go.kr)으로 하면 전세대출 금리 0.1~0.2%p 할인.</p>
+        </li>
+        <li>
+          <div class="tl-date">2026.7 ~ 8</div>
+          <p class="tl-body"><b>병행 3종</b> — 은행 3~4곳 전세대출 사전상담 / 메이플자이 등기 완료 확인 / 기존전세(A) 집주인 조기반환 협상 개시.</p>
+        </li>
+        <li>
+          <div class="tl-date">2026.8.24 ~ 10.23</div>
+          <p class="tl-body"><b>입주지정기간 = 잔금 90%(7.37억) 납부 · 입주 · 전입신고.</b> 낼 수 있는 만큼 먼저 내고 부족분은 아래 지연 활용.</p>
+        </li>
+        <li>
+          <div class="tl-date">~ 2027.1.23</div>
+          <p class="tl-body"><b>입주 최대 지연 한도</b> (입주종료 +3개월). 10.24부터 <b>미납분에만</b> 연체료(2개월내 6% / 초과 6.5%) + 관리비. 자금 시간을 버는 카드.</p>
+        </li>
+        <li>
+          <div class="tl-date">2027.5</div>
+          <p class="tl-body"><b>기존전세(A) 만기</b> → 보증금 4.3억 반환 → 대출 3억 상환 → <b>순현금 1.3억 확보.</b> 역전세 없어 반환은 확정.</p>
+        </li>
+        <li>
+          <div class="tl-date">~ 2028 (2년 후)</div>
+          <p class="tl-body"><b>첫 재계약.</b> 이 전에 <b>둘째 출산(입주 후)</b>이면 소득·자산 초과 면제 → 20년 거주 안정.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">02</span> 자금 재원 현황</h2>
+    <p class="lede">필요 8.19억을 이 재료들로 조립한다. 핵심 제약: A 보증금은 2027.5에나 풀린다.</p>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>재원</th><th class="num">금액</th><th>가용 시점 / 조건</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>순수현금 (즉시)</td><td class="num">2.5억</td><td>주식·예금 안 건드린 현금</td></tr>
+          <tr><td>기존전세 A 순현금</td><td class="num">1.3억</td><td>2027.5 만기 회수 (4.3억 − 대출 3억)</td></tr>
+          <tr><td>B 전세대출 (SGI)</td><td class="num">4.5 ~ 5억</td><td>등기 정상 + 소득심사. 보증비율 80% 한도 6.55억 내</td></tr>
+          <tr><td>신용대출</td><td class="num">~1억</td><td>DSR 40% 내 (브릿지용)</td></tr>
+          <tr><td>주식·예금 (영끌 시)</td><td class="num">+3억</td><td>최대한 보존 — 최후 수단</td></tr>
+          <tr><td>가족 차입</td><td class="num">협의</td><td>단기 브릿지에 특히 유용</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <b>기존 부채:</b> A 전세대출 3억 (만기 2027.5). B로 전입하는 순간 이 대출이 회수 대상이 되고, 전세대출은 1인 1건이라 <b>A를 정리해야 B 전세대출이 나온다</b> — A 정리 · 1.3억 · B 전세대출은 한 세트.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">03</span> 3갈래 자금 시나리오</h2>
+    <p class="lede">갈림길은 단 하나 — <b>기존전세(A) 집주인이 조기반환에 협조하느냐.</b> 우선순위 A &gt; B &gt; C.</p>
+    <div class="paths">
+
+      <div class="path p-good">
+        <div class="path-head">
+          <span class="badge">A</span>
+          <span class="ttl">집주인 조기반환 성공</span>
+          <span class="sub"><span class="pill good">권장 · 주식 보존</span></span>
+        </div>
+        <div class="path-body">
+          <div class="row"><span>순수현금</span><span>2.5억</span></div>
+          <div class="row"><span>A 정리 순현금</span><span>1.3억</span></div>
+          <div class="row"><span>B 전세대출</span><span>4.5억</span></div>
+          <div class="row" style="border-top:1px solid var(--border);margin-top:4px;padding-top:8px;"><span><b>합계</b></span><span><b>8.3억 ✓</b></span></div>
+          <p class="verdict">브릿지 불필요. 주식·예금 한 주 안 건드리고 끝. 전세대출이 4억만 나와도 부족 0.4억은 가족/소액으로.</p>
+        </div>
+      </div>
+
+      <div class="path p-warn">
+        <div class="path-head">
+          <span class="badge">B</span>
+          <span class="ttl">협조 X · 브릿지 (주식 지킴)</span>
+          <span class="sub"><span class="pill warn">차선 · 3.5개월</span></span>
+        </div>
+        <div class="path-body">
+          <div class="row muted-note"><span>2027.1 나갈 돈 (잔금 7.37 + A대출 3.0)</span><span>10.4억</span></div>
+          <div class="row muted-note"><span>그때 있는 돈 (현금 1.7 + 전세대출 4.5)</span><span>6.2억</span></div>
+          <div class="row"><span><b>브릿지 필요</b></span><span><b>4.2억</b></span></div>
+          <div class="row"><span>· 신용대출 / 주식담보대출 / 가족</span><span>1 / 2 / 1.2</span></div>
+          <p class="verdict"><b>주식담보대출</b>(팔지 않고 담보만)이 핵심. 2027.5 A반환 4.3억으로 전액 상환. 비용 = 3.5개월 이자 <b>~700만원</b>.</p>
+        </div>
+      </div>
+
+      <div class="path p-risk">
+        <div class="path-head">
+          <span class="badge">C</span>
+          <span class="ttl">협조 X · 주식 매도</span>
+          <span class="sub"><span class="pill risk">최후</span></span>
+        </div>
+        <div class="path-body">
+          <div class="row"><span>주식·예금 매도</span><span>2 ~ 3억</span></div>
+          <div class="row"><span>신용대출 + 가족</span><span>~1.2억</span></div>
+          <p class="verdict">브릿지가 여의치 않을 때 주식을 실제 처분. 2027.5 A반환 후 재매수 가능하나 기회비용·시장리스크 발생. B와 상황은 같고 "담보냐 매도냐"만 다름.</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="callout good">
+      <b>안전판:</b> 매매가 10억↑ 단지라 역전세 없음 → A 보증금 4.3억은 늦어도 2027.5에 <b>100% 회수 확정</b>. 최악의 경우도 "3.5개월 · 약 700만원" 브릿지로 고정된다. 파국 시나리오 없음.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">04</span> 은행 전략</h2>
+    <p class="lede">전세대출은 은행마다 한도·금리·소득 인정이 크게 달라 — 반드시 여러 곳 비교.</p>
+    <div class="card">
+      <ul class="clean">
+        <li><b>3~4곳 사전상담(가심사) 후 비교.</b> 주거래은행 1곳 + SH 장기전세 협약은행 2~3곳. 가심사 여러 번 돌려도 신용점수 영향 거의 없음.</li>
+        <li><b>주거래은행은 꼭 포함</b> — 급여이체·카드실적 우대금리(0.1~0.3%p). 단 주거래만 보면 한도 손해 볼 수 있음.</li>
+        <li><b>SH 협약은행 확인</b> — 공공(SH)이 임대인이라 전용 상품·우대 가능. SH 콜센터 1600-3456 또는 계약서류에서 목록 확인.</li>
+        <li><b>"아파트 지점"은 무관</b> — 전세대출은 어느 지점서든 가능(분양 집단대출과 다름).</li>
+      </ul>
+    </div>
+    <div class="callout warn">
+      <b>소득증빙 — 작년치에 갇히지 말 것.</b> 이직 등으로 작년 원천징수 소득이 낮게 잡히면, <b>재직증명서 + 최근 급여명세서 + 건강보험 보수월액</b>으로 <b>현 소득 연환산</b>을 인정받자. 배우자 소득은 <b>복직예정확인서 등</b>으로 합산 시도 → 한도 상승.
+    </div>
+    <div class="card" style="margin-top:14px;">
+      <p style="margin:0 0 10px;font-weight:800;font-size:14px;">은행에 반드시 물어볼 것</p>
+      <ul class="clean">
+        <li>이 건(SH 장기전세 8.19억 아파트) <b>전세대출 최대 한도</b>는? (5억 되면 받아두면 주식 방어에 유리)</li>
+        <li>현 소득 <b>연환산 인정</b> 되나? 배우자 소득 합산 조건은?</li>
+        <li>메이플자이 <b>등기 완료</b> 상태라 대출 실행 가능한가?</li>
+        <li><b>우대금리 다 적용 시 최종 금리</b>는? (전자계약 0.1~0.2 + 신혼/다자녀 + 주거래 + SH협약 → 0.3~0.7%p 감면 가능)</li>
+        <li>곧 시행될 <b>고가전세·무주택 DSR 규제</b>가 이 건에 걸리나?</li>
+        <li>브릿지용 <b>신용대출 한도</b>(DSR 40% 내)는 얼마?</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">05</span> 집주인(기존전세 A) 협상</h2>
+    <p class="lede">만기 2027.5이지만 조기반환을 끌어내면 브릿지가 통째로 사라진다.</p>
+    <div class="card">
+      <ul class="clean">
+        <li><b>안전판 먼저:</b> 만기 6~2개월 전(2026.11~2027.3) <b>갱신거절(퇴거) 의사 문서 통보</b> → 만기 반환은 법적 의무로 확정.</li>
+        <li><b>조기반환 지렛대:</b> 전세난 + 매매가 10억↑ → 내놓으면 바로 나가고, 집주인은 보증금 올려받을 기회라 거절 명분 적음.</li>
+        <li><b>협조 유도:</b> "새 세입자 구해지면 나가겠다" + <b>중개수수료 내가 부담</b> 제안 → 집주인 부담 0.</li>
+      </ul>
+      <div class="script" style="margin-top:14px;">
+        <div class="q">협상 멘트 예시</div>
+        “사정상 만기(2027.5)보다 앞당겨 이사해야 할 것 같습니다. 요즘 전세 물건이 귀하니 새 세입자는 제가 부동산 통해 빨리 맞추고, <b>중개수수료도 제가 부담</b>하겠습니다. 새 임차인 계약되는 시점에 보증금 반환해 주시면 됩니다.”
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">06</span> 대출 지표 · 규제 요약</h2>
+    <div class="card">
+      <p style="margin:0 0 10px;font-weight:800;font-size:14px;">전세대출에 실제로 걸리는 지표</p>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>지표</th><th>전세대출(내 경우)</th></tr></thead>
+          <tbody>
+            <tr><td>LTV</td><td>❌ 미적용 (담보대출 아님)</td></tr>
+            <tr><td>DSR 40% / 스트레스DSR</td><td>❌ 원금 미포함 (이자만 일부) — 실질 제약 거의 없음</td></tr>
+            <tr><td><b>보증비율</b> (90→80, 70 검토)</td><td>✅ <b>핵심.</b> 80% → 최대 6.55억 / 70%여도 5.73억 → 4.5억은 커버</td></tr>
+            <tr><td>은행 소득심사</td><td>✅ 본다. 4.5억은 무난, 5억은 소득 상단</td></tr>
+            <tr><td>신용대출(브릿지)</td><td>DSR 40% 걸림 → ~1억이 현실선</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="callout warn">
+      <b>규제 리스크 — 서두를수록 유리.</b> 2026년 7월 부동산 종합대책이 전세대출을 조이는 중(고가전세 보증제한은 <b>10억↑</b> 타깃 → 8.19억은 아직 세이프, 단 기준 하향 가능). 대출은 <b>실행 시점 규제</b>를 따르니 등기·상담·실행을 앞당길 것.
+    </div>
+    <div class="callout good" style="margin-top:10px;">
+      정책 <b>특례 전세대출(신생아·신혼, 연 1~4%)</b>은 보증금 상한(5억)·순자산(3.45억) 초과로 <b>불가</b>. 대신 시중은행 전세대출 + 신혼·다자녀·전자계약·주거래 <b>우대금리</b>로 대응(특례는 한도 2.4억이라 어차피 부족했음).
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">07</span> 지원 제도 적용 체크 (무주택·신혼·자녀·중기재직)</h2>
+    <p class="lede">받을 수 있는 지원을 전부 대조했다. 정책 초저금리는 8.19억 보증금 벽에 다 막히고, 실익은 두 곳에 있다.</p>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>제도</th><th>가능?</th><th>이유</th></tr></thead>
+        <tbody>
+          <tr><td>서울시 신혼부부 이자지원</td><td><span class="pill risk">불가</span></td><td>보증금 7억 이하 조건 (8.19억 초과)</td></tr>
+          <tr><td>신생아 특례 전세</td><td><span class="pill risk">불가</span></td><td>보증금 5억↓ · 순자산 3.45억↓ 초과</td></tr>
+          <tr><td>신혼 버팀목</td><td><span class="pill risk">불가</span></td><td>보증금 4억↓ · 소득 7,500↓ · 순자산 초과</td></tr>
+          <tr><td>중소기업청년 전세</td><td><span class="pill risk">불가</span></td><td>만34세↓ · 보증금 2억↓ · 소득 초과</td></tr>
+          <tr><td>시중은행 우대금리 스택</td><td><span class="pill good">가능</span></td><td>신혼+다자녀+중기재직+전자계약+주거래+SH → 0.3~0.8%p 감면</td></tr>
+          <tr><td>장기전세 재계약 면제</td><td><span class="pill good">핵심</span></td><td>둘째(입주 후 출생)로 소득·자산 면제 → 20년 저가 거주</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout good">
+      <b>진짜 최적화는 "빌리는 쪽"이 아니라 "눌러앉는 쪽".</b> 8.19억은 시세 대비 20%+ 싼 보증금 — 둘째 출산 타이밍 + 자산관리로 <b>20년을 저렴하게 유지</b>하는 것이 이 당첨의 최대 가치다.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">08</span> 20년 거주 유지 메모 (재계약)</h2>
+    <div class="card">
+      <ul class="clean">
+        <li><b>재계약 소득기준</b> (49㎡=50㎡미만): 105% / 맞벌이 <b>140% = 월 1,067만원</b>(3인 기준). 소득이 이 선에 근접하면 초과 위험 — 상여·복직 등으로 오를 수 있음.</li>
+        <li><b>둘째(입주 후 출생) → 소득·자산 초과 면제.</b> 첫 재계약(≈2028) 전 출산이 핵심. 20년 안정의 열쇠.</li>
+        <li><b>단, 자동차가액 4,563만원 이하</b>는 면제 안 됨 — 비싼 차 사면 재계약 불가.</li>
+        <li><b>총자산 6.4억 이하</b> 유지 (해당 장기전세 보증금은 산정 제외가 원칙, SH 재확인).</li>
+        <li><b>무주택 · 전입 · 실거주</b> 임대기간 내내 필수. <b>전대·전매 금지</b>(위반 시 형사처벌).</li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="hr">
+
+  <section>
+    <h2><span class="num">09</span> 액션 플랜</h2>
+    <p class="lede">시점별 체크리스트 — 위에서 아래로.</p>
+    <div class="card">
+      <p class="phase-label">이번 주 (D-14, ~7.24 전)</p>
+      <ul class="checks">
+        <li><span class="box"></span><span><b>은행 3~4곳 사전상담</b> — SH 협약은행 목록부터 확보(콜센터 1600-3456). 최대 한도·최종 금리 비교.</span></li>
+        <li><span class="box"></span><span><b>메이플자이 등기 완료 여부 확인</b> — 대출 실행 가능한지(등기 지연 시 대출 불가 리스크).</span></li>
+        <li><span class="box"></span><span><b>소득증빙 서류 준비</b> — 재직증명서 · 급여명세서 3~6개월 · 건강보험 보수월액 · 배우자 복직예정확인서(해당 시).</span></li>
+        <li><span class="box"></span><span><b>계약금 8,190만원</b> 재원(순수현금) 확보.</span></li>
+      </ul>
+
+      <p class="phase-label">계약 (2026.7.22 ~ 7.24)</p>
+      <ul class="checks">
+        <li><span class="box"></span><span>계약금 납부 후 <b>전자계약</b> 체결 → 금리할인 확보.</span></li>
+        <li><span class="box"></span><span>공사에 <b>연체료율·3개월 지연 규정 · 부분납부 처리 방식</b> 문서로 재확인.</span></li>
+      </ul>
+
+      <p class="phase-label">입주 전 (2026.8 ~ 10, 지연 시 ~2027.1)</p>
+      <ul class="checks">
+        <li><span class="box"></span><span><b>기존전세 A 집주인 조기반환 협상</b> — 새 세입자 조건 + 중개수수료 부담 제안. (성사되면 길 A)</span></li>
+        <li><span class="box"></span><span>협조 불투명하면 <b>주식담보대출 · 신용대출 한도 미리 확보</b>(길 B 대비).</span></li>
+        <li><span class="box"></span><span>전세대출 실행 → 잔금 납부 → <b>입주 + 전입신고</b>(대항력·자격 유지).</span></li>
+      </ul>
+
+      <p class="phase-label">장기 (2027 ~)</p>
+      <ul class="checks">
+        <li><span class="box"></span><span>2027.5 A 반환 → 브릿지/신용대출 상환.</span></li>
+        <li><span class="box"></span><span>첫 재계약(≈2028) 전 <b>둘째 출산(입주 후)</b> → 소득·자산 면제 확보.</span></li>
+        <li><span class="box"></span><span>총자산 6.4억 · 자동차 4,563만원 기준 관리.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <p class="foot">개인 참고용 자금 계획 문서 · 대출 한도·금리·규제·SH 요건은 실행 시점에 은행·SH·부동산에 최종 확인하세요.</p>
+</div>
+</body>
+</html>
