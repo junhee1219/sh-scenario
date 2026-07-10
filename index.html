@@ -451,10 +451,65 @@
     </div>
   </section>
 
+  <section>
+    <h2><span class="num">09</span> 실행 메커니즘 &amp; 날짜 정렬</h2>
+    <p class="lede">대출은 "승인"과 "실행"이 다르다. 그리고 A↔B 날짜를 어떻게 맞추냐가 브릿지 여부를 가른다.</p>
+    <div class="card">
+      <ul class="clean">
+        <li><b>승인/가심사</b>는 미리 가능(날짜 불필요, 한도·금리만 확인). <b>실행</b>은 잔금일에만 — 대출금은 <b>SH로 직접 송금</b>되고 <b>전입(실거주)이 실행 조건</b>. 미리 현금 받아 들고 있는 건 불가.</li>
+        <li><b>트리거 순서:</b> ① 가심사로 4~5억 확인 + 등기 확인 → ② 집주인 조기반환 콜 → ③ A 새 세입자 입주일 확정 → ④ 그 날짜(B 입주가능기간 내)로 은행에 실행 신청(약 2주 전) → ⑤ 그 날 동시결제.</li>
+      </ul>
+    </div>
+    <p class="lede" style="margin-top:18px;">A 보증금 반환일 ↔ B 잔금일 정렬 규칙</p>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>정렬</th><th>결과</th><th>판정</th></tr></thead>
+        <tbody>
+          <tr><td>같은 날 (동시결제)</td><td>A 돈이 그날 들어와 바로 B로 나감 → 브릿지 0</td><td><span class="pill good">목표</span></td></tr>
+          <tr><td>B 먼저 입주 / A 세입자 나중</td><td>그 기간만큼 브릿지 필요 (이자만 발생)</td><td><span class="pill warn">가능</span></td></tr>
+          <tr><td>A 세입자 먼저 / B 나중</td><td>A에서 나와야 하는데 B 미입주 → 살 곳 없음</td><td><span class="pill risk">금지</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <b>브릿지는 "금액"이 아니라 "이자"가 기간에 비례한다.</b> 빌리는 원금은 며칠이든 몇 달이든 거의 같음(~4.2억). 며칠이면 이자 수만원, 3.5개월이면 ~700만원. 수단: <b>주식담보대출 · 부모 담보대출 · 예금담보 · 신용대출 · 가족차입</b> 조합(2금융 "브릿지론"은 연 8~15% 고금리라 비추). 같은 날 결제하면 브릿지 자체가 0.
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="num">10</span> 리스크 대응 — 총량 · 등기 · 집주인</h2>
+    <div class="card">
+      <p style="margin:0 0 10px;font-weight:800;font-size:14px;">① 대출총량 규제 (2026.7 현재 빡빡)</p>
+      <ul class="clean">
+        <li>은행들이 한도 조이는 국면(월 취급한도 소진 · 모집인 채널 중단 등). 단 <b>실거주 무주택 전세대출은 상대적 보호 대상</b>이라 완전 중단은 드묾.</li>
+        <li>대응: <b>여러 은행 가심사 확보</b> · 대출모집인 말고 <b>은행 직접 창구</b> · <b>월초 실행</b>(월 한도 리셋) · <b>연말(12월) 회피</b> · 막히면 <b>입주 지연 카드(2027.1, 연초 리셋)</b>.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p style="margin:0 0 10px;font-weight:800;font-size:14px;">② 등기 (실행 가능 여부)</p>
+      <ul class="clean">
+        <li>이 물건은 <b>재공급(서울시 매입형)</b> → SH 소유·등기가 이미 정리됐을 가능성 높음. 신규 미준공 단지 경고와 결이 다름(리스크 낮음).</li>
+        <li>그래도 <b>은행/SH에 등기 완료 여부 확인</b>은 필수(대출 실행 전제).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <p style="margin:0 0 10px;font-weight:800;font-size:14px;">③ 집주인 조기반환 협조 (확률 높음)</p>
+      <ul class="clean">
+        <li>세입자가 <b>계약갱신청구권(2+2, 증액 5% 상한)을 안 쓰고 나가면</b> → 집주인은 <b>신규계약으로 시세대로(상한 없이) 올려받을 기회</b> → 오히려 환영.</li>
+        <li>전세 상승·전세난이면 높여 내놔도 금방 나감. 과잉 인상=공실은 집주인 손해라 스스로 시장가에 맞춤.</li>
+        <li>최악(만기까지 버팀)이어도 <b>2027.5 반환은 법적 확정</b> → 파국 아님, 브릿지 몇 달.</li>
+        <li>협상 팁: "시세대로 새 세입자 받으세요 + <b>중개수수료 제가 부담</b>" → 집주인 저항 최소화.</li>
+      </ul>
+    </div>
+    <div class="callout good">
+      <b>소득증빙 원칙:</b> 있는 사실만 유리하게 제출·고지(연봉계약서, 현 소득 연환산 등). 실현 의사 없는 <b>복직예정확인서 같은 허위 서류는 사기 소지라 금지</b> — 이자 잘 내도 위법성은 남음. 본인 소득 + 현금 버퍼로 설계하면 충분.
+    </div>
+  </section>
+
   <hr class="hr">
 
   <section>
-    <h2><span class="num">09</span> 액션 플랜</h2>
+    <h2><span class="num">11</span> 액션 플랜</h2>
     <p class="lede">시점별 체크리스트 — 위에서 아래로.</p>
     <div class="card">
       <p class="phase-label">이번 주 (D-14, ~7.24 전)</p>
